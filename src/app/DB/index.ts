@@ -1,4 +1,5 @@
 import config from "../config"
+import { USER_ROLE } from "../modules/user/user.constant"
 import { User } from "../modules/user/user.model"
 
 const superUser = {
@@ -6,16 +7,15 @@ const superUser = {
     email: 'superadmin@gmail.com',
     password: config.super_admin_password,
     needsPasswordChange: false,
-    passwordChangedAt: Date,
-    role: 'super-admin',
+    role: 'superAdmin',
     status: 'in-progress',
     isDeleted: false,
 } 
 
 const seedSuperAdmin =async () => {
-    const isSuperAdminExist = await User.findOne({role: 'super-admin'})
+    const isSuperAdminExist = await User.findOne({role: USER_ROLE.superAdmin})
     if(!isSuperAdminExist){
-        User.create({superUser})
+       await User.create(superUser)
     }
 }
 
