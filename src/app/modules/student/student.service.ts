@@ -7,8 +7,8 @@ import { studentSearchableFields } from './student.constant';
 import { TStudent } from './student.interface';
 import { Student } from './student.model';
 
-const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
-  /*
+// const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
+/*
   const queryObj = { ...query }; // copying req.query object so that we can mutate the copy object 
    
   let searchTerm = '';   // SET DEFAULT VALUE 
@@ -108,16 +108,39 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
 
   */
 
+//   const studentQuery = new QueryBuilder(
+//     Student.find()
+//       .populate('user')
+//       .populate('admissionSemester')
+//       .populate({
+//         path: 'academicDepartment',
+//         populate: {
+//           path: 'academicFaculty',
+//         },
+//       }),
+//     query,
+//   )
+//     .search(studentSearchableFields)
+//     .filter()
+//     .sort()
+//     .paginate()
+//     .fields();
+
+//   const meta = await studentQuery.countTotal();
+//   const data = await studentQuery.modelQuery;
+
+//   return {
+//     meta,
+//     data,
+//   };
+// };
+
+const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
   const studentQuery = new QueryBuilder(
     Student.find()
       .populate('user')
       .populate('admissionSemester')
-      .populate({
-        path: 'academicDepartment',
-        populate: {
-          path: 'academicFaculty',
-        },
-      }),
+      .populate('academicDepartment academicFaculty'),
     query,
   )
     .search(studentSearchableFields)
